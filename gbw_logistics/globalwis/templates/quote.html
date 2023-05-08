@@ -1,0 +1,89 @@
+{% include "navbar.html" %}
+
+<div style="text-align: center;">
+  <form id="quoteForm" method="POST">
+    {% if 'quote' in request.path %}
+    <div style="border: 3px solid purple; background-color: purple; border-radius: 10px; padding: 10px; display: inline-block; margin-top: 1cm;">
+      <h2 style="color: white; font-weight: bold; text-align: center; font-size: 24px; text-shadow: 1px 1px 2px black;">Get Quote</h2>
+    </div>
+    {% else %}
+    <div style="border: 3px solid purple; background-color: purple; border-radius: 10px; padding: 10px; display: inline-block; margin-top: 1cm;">
+      <h2 style="color: white; font-weight: bold; text-align: center; font-size: 24px; text-shadow: 1px 1px 2px black;">Create Shipment</h2>
+    </div>
+    {% endif %}
+      {% csrf_token %}
+      <div style="display:flex;justify-content:space-between;padding:50px;">
+        <div style="text-align:center;">
+          <span>From</span>
+        </div>
+        <table style="border: 80px solid rgb(66, 62, 62);">
+          <tr>
+            <td>Country</td>
+            <td>{{ form.pickup_country }}</td>
+          </tr>
+          <tr>
+            <td>Address (optional)</td>
+            <td><input type="text" name="address" placeholder="Street address, city, zip code..."></td>
+          </tr>
+        </table>
+        <div style="text-align:center;">
+          <span>To</span>
+        </div>
+        <table style="border: 80px solid rgb(66, 62, 62);">
+          <tr>
+            <td>Country</td>
+            <td>{{ form.delivery_country }}</td>
+          </tr>
+          <tr>
+            <td>Address (optional)</td>
+            <td><input type="text" name="address" placeholder="Street address, city, zip code..."></td>
+          </tr>
+        </table>
+      </div>
+      
+      
+      <div id="nextFields" style="display: none;">
+        <div style="border: 2px solid purple; background-color: purple; border-radius: 7px; padding: 10px; display: inline-block;">
+          <h2 style="color: white; font-weight: bold; text-align: center; font-size: 18px; text-shadow: 1px 1px 2px black;">Dimensions</h2>
+        </div>
+        {{ form.weight.label_tag }}
+        {{ form.weight }}
+        {{ form.length.label_tag }}
+        {{ form.length }}
+        {{ form.width.label_tag }}
+        {{ form.width }}
+        {{ form.height.label_tag }}
+        {{ form.height }}
+      </div>
+      <button id="nextButton" type="button">Next</button>
+      {% if 'quote' in request.path %}
+      <div id="buttonContainer" style="text-align: center;">
+        <button type="submit" id="quoteButton" style="display: none; background-color: purple; color: white; border: 2px solid purple; border-radius: 10px; padding: 10px 20px; margin-top: 50px;">Get Quote</button>
+      </div>
+      {% else %}
+      <div id="buttonContainer" style="text-align: center;">
+        <button type="submit" id="shipmentButton" style="display: none; background-color: purple; color: white; border: 2px solid purple; border-radius: 10px; padding: 10px 20px; margin-top: 50px;">Create Shipment</button>
+      </div>
+      {% endif %}
+
+
+  </form>
+</div>
+
+<script>
+  const nextButton = document.getElementById("nextButton");
+  const nextFields = document.getElementById("nextFields");
+  const quoteButton = document.getElementById("quoteButton");
+  const shipmentButton = document.getElementById("shipmentButton");
+  nextButton.addEventListener("click", function() {
+    nextFields.style.display = "block";
+    nextButton.style.display = "none";
+    {% if 'quote' in request.path %}
+    quoteButton.style.display = "block";
+    {% else %}
+    shipmentButton.style.display = "block";
+    {% endif %}
+  });
+</script>
+
+{% include "footer.html" %}

@@ -1,0 +1,79 @@
+{% include 'navbar.html' %}
+
+{% load static %}
+<h2>Tracking Your Shipment!!!</h2>
+<h3>Package Details:</h3>
+
+<table style="border-collapse: collapse; border: 1px solid black;">
+  {% if package %}
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Package ID</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.package_id }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Status</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.status }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Sender</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.contact_info.sender_name }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Recipient</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.contact_info.receiver_name }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Pickup Country</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.pickup_country }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Delivery Country</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.delivery_country }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Weight</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.weight }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Height</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.height }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Width</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.width }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Length</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.length }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Image</td>
+      <td style="border: 1px solid black; padding: 5px;"><img src="{{ shipment.image.url }}" alt="{{ shipment.image }}" width="200" height="200"></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Shipping Type</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.shipping_type }}</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Description</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.description }}</td>
+    </tr>
+    {% if shipment.current_state %}
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Current Location:</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ shipment.current_state }}, {{ shipment.current_country }}, {{ shipment.current_zip }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td style="border: 1px solid #383737; padding: 5px; background-color: #c0bcbc; color: #ffffff; font-weight: bold;">Created At:</td>
+      <td style="border: 1px solid black; padding: 5px;">{{ package.created_at }}</td>
+    </tr>
+  {% else %}
+    <tr>
+      <td colspan="2">Package not found</td>
+    </tr>
+  {% endif %}
+</table>
+
+
+{% include 'footer.html' %}
